@@ -1,0 +1,44 @@
+//Subset
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+vector<vector<int>> res;
+
+void backtrack(vector<int>& nums, int idex, vector<int>& cur) {
+	if (idex == nums.size()) {
+		res.push_back(cur);
+		return;
+	}
+	backtrack(nums, idex + 1, cur);
+	cur.push_back(nums[idex]);
+	backtrack(nums, idex + 1, cur);
+	cur.pop_back();
+}
+
+int main()
+{
+	int n;
+	cin >> n;
+	vector<int> nums;
+	vector<int> cur;
+	for (int i = 0; i < n; i++) {
+		int x;
+		cin >> x;
+		nums.push_back(x);
+	}
+	
+	backtrack(nums, 0, cur);
+	
+	for (vector<int>x : res) {
+		cout << "[ ";
+		for (int y : x) {
+			cout << y << " ";
+		}
+		cout << "]";
+		cout << endl;
+	}
+	
+	return 0;
+
+}
