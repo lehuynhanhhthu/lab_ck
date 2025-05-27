@@ -1,0 +1,47 @@
+//Tree Diameter
+#include<iostream>
+#include<queue>
+#include<vector>
+#include<algorithm>
+using namespace std;
+const int MAX = 2e5 + 5;
+vector<int>re[MAX];
+pair<int, int>bfs(int start, int n) {
+	vector<int>dis(n + 1, -1);
+	queue<int>q;
+	q.push(start);
+	dis[start] = 0;
+	int far = start;
+	while (!q.empty()) {
+		int u = q.front();
+		q.pop();
+		for (int v : re[u]) {
+			if (dis[v] == -1) {
+				dis[v] = 1 + dis[u];
+				q.push(v);
+				if (dis[v] > dis[far]) {
+					far = v;
+				}
+			}
+			
+		}
+
+	}
+	return{ far,dis[far] };
+}
+int main()
+{
+	int n;
+	cin >> n;
+	for (int i = 1; i < n; i++) {
+		int x, y;
+		cin >> x >> y;
+		re[x].push_back(y);
+		re[y].push_back(x);
+	}
+	int u = bfs(1, n).first;
+	int d = bfs(u, n).second;
+	cout << d;
+	return 0;
+
+}
