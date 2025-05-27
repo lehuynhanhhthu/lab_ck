@@ -1,0 +1,42 @@
+//Course Schedule II
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+bool cycle(vector<vector<int>>& graph, int node, vector<int>& visited,vector<int>&res) {
+	if (visited[node] == 1)return false;
+	if (visited[node] == 2)return true;
+	visited[node] = 1;
+	for (int x : graph[node]) {
+		if (cycle(graph, x, visited,res) == false)return false;
+	}
+	visited[node] = 2;
+	res.push_back(node);
+	return true;
+}
+int main()
+{
+	int n, m;
+	cin >> n >> m;
+	vector<vector<int>> grid(n + 1);
+	for (int i = 0; i < m; i++) {
+		int x, y;
+		cin >> x >> y;
+		grid[y].push_back(x);
+	}
+	vector<int>visited(n, 0);
+	vector<int> res;
+	for (int i = 0; i < n; i++) {
+		if (visited[i] == 0) {
+			if (cycle(grid, i, visited, res) == false) {
+				return {};
+			}
+		}
+	}
+	reverse(res.begin(), res.end());
+	for (int x : res) {
+		cout << x << " ";
+	}
+	return 0;
+
+}
