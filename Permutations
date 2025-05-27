@@ -1,0 +1,46 @@
+//Permutations
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+vector<vector<int>> res;
+
+void backtrack(vector<int>&nums,int idex) {
+	if (idex == nums.size()) {
+		res.push_back(nums);
+		return;
+	}
+	for (int i = idex; i < nums.size(); i++) {
+		swap(nums[i], nums[idex]);
+		backtrack(nums, idex + 1);
+		swap(nums[i], nums[idex]);
+	}
+}
+int main()
+{
+	int n;
+	cin >> n;
+	vector<int> nums;
+	vector<int> cur;
+	for (int i = 0; i < n; i++) {
+		int x;
+		cin >> x;
+		nums.push_back(x);
+	}
+	
+	
+	
+	backtrack(nums,0);
+	
+	for (vector<int>x : res) {
+		cout << "[ ";
+		for (int y : x) {
+			cout << y << " ";
+		}
+		cout << "]";
+		cout << endl;
+	}
+	
+	return 0;
+
+}
