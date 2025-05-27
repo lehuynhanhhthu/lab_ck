@@ -1,0 +1,50 @@
+//Longest Increasing Subsequence
+#include<iostream>;
+#include<vector>;
+#include<algorithm>
+using namespace std;
+
+int result(vector<int>& nums) {
+	vector<int>cur;
+	for (int x : nums) {
+		if (cur.empty()) {
+			cur.push_back(x);
+			continue;
+		}
+		int left = 0; 
+		int right = cur.size() - 1;
+		int f = -1;
+		while (left <= right) {
+			int m = left + (right - left) / 2;
+			if (cur[m] >= x) {
+				f = m;
+				right = m - 1;
+			}
+			else {
+				left = m + 1;
+			}
+		}
+		if (f != -1) {
+			cur[f] = x;
+		}
+		else {
+			cur.push_back(x);
+		}
+	}
+	return cur.size();
+}
+int main()
+{
+	int n;
+	cin >> n;
+	vector<int> nums;
+	for (int i = 0; i < n; i++) {
+		int x;
+		cin >> x;
+		nums.push_back(x);
+	}
+	
+	cout << result(nums);
+	return 0;
+
+}
