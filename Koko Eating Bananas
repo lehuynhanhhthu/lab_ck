@@ -1,0 +1,40 @@
+//Koko Eating Bananas
+#include<iostream>;
+#include<vector>;
+#include<algorithm>
+using namespace std;
+int result(vector<int>& nums, int h) {
+	int left = 1;
+	int right = *max_element(nums.begin(), nums.end());
+	int f = right;
+	while (left <= right) {
+		int m = left + (right - left) / 2;
+		long long hours = 0;
+		for (int x : nums) {
+			hours += (1LL * x + m - 1) / m;
+		}
+		if (hours <= h) {
+			f = m;
+			right = m - 1;
+		}
+		else {
+			left = m + 1;
+		}
+	}
+	return f;
+}
+int main()
+{
+	int n;
+	cin >> n;
+	vector<int> nums;
+	for (int i = 0; i < n; i++) {
+		int x;
+		cin >> x;
+		nums.push_back(x);
+	}
+	int target; cin >> target;
+	cout << result(nums, target);
+	return 0;
+
+}
