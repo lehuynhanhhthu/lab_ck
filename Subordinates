@@ -1,0 +1,32 @@
+//Subordinates
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+const int MAX = 2e5 + 5;
+vector<int>b[MAX];
+int res[MAX];
+
+int duyet(int i) {
+	int c = 0;
+	for (int x : b[i]) {
+		c += 1 + duyet(x);
+	}
+	res[i] = c;
+	return c;
+}
+int main()
+{
+	int n;
+	cin >> n;
+	for (int i = 2; i <= n; i++) {
+		int x; cin >> x;
+		b[x].push_back(i);
+	}
+	int k = duyet(1);
+	for (int i = 1; i <= n; i++) {
+		cout << res[i] << " ";
+	}
+	return 0;
+
+}
