@@ -1,0 +1,43 @@
+//Max Area of Island
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int duyet(vector<vector<int>>& grid, int i, int j) {
+	int n = grid.size();
+	int m = grid[0].size();
+	if (i < 0 || i >= n || j < 0 || j >= m || grid[i][j] == 0)return;
+	grid[i][j] = 0;
+	int c = 1;
+	c+=duyet(grid, i - 1, j);
+	c+=duyet(grid, i + 1, j);
+	c+=duyet(grid, i, j - 1);
+	c+=duyet(grid,i, j + 1);
+	return c;
+}
+
+
+int main()
+{
+	int n, m;
+	cin >> n >> m;
+	vector<vector<int>> grid(n,vector<int>(m));
+	
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			cin >> grid[i][j];
+		}
+	}
+	int c = 0;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			if (grid[i][j] == 1) {
+				c=max(duyet(grid, i, j),c);
+				
+			}
+		}
+	}
+	cout << c;
+	return 0;
+
+}
